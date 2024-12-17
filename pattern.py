@@ -186,8 +186,10 @@ else:
 st.markdown(
     """
     <div class='footer'>
-        Created by <strong>Muhammed İbrahim Kartal</strong>. Check out the project on
-        <a href="https://github.com/muhkartal" target="_blank">GitHub</a>.
+        Created by  <a href="https://kartal.dev/" target="_blank">Muhammed İbrahim Kartal</a>. Check out the project on
+        <a href="https://github.com/muhkartal" target="_blank">GitHub</a>.<br>
+        <br>If you encounter any problems, please contact me at
+        <a href="mailto:Muhammed_ikartal@outlook.com">:Muhammed_ikartal@outlook.com</a>.
     </div>
     """,
     unsafe_allow_html=True
