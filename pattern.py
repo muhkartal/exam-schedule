@@ -17,7 +17,7 @@ def create_pdf(course_details_list):
 
 
     # Header with University Name
-    pdf.set_font("Sans", size=14)
+    pdf.set_font("Arial", size=14)
     pdf.cell(0, 10, txt="Halic Üniversitesi - Sınav Programı", ln=True, align="C")
     pdf.ln(5)
 
