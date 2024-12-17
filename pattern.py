@@ -12,7 +12,7 @@ def create_pdf(course_details_list):
     pdf.set_top_margin(20)
 
     # Font setup
-    font_path = "Github/exam-schedule/data/DejaVuSans.ttf"
+    font_path = "data/DejaVuSans.ttf"
     pdf.set_font("Arial", size=10)
 
 
