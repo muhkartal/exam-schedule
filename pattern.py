@@ -10,7 +10,6 @@ def create_pdf(course_details_list):
     pdf.set_right_margin(10)
     pdf.set_top_margin(20)
 
-    # Use a Unicode-compatible font like DejaVuSans
     font_path = "data/sans.ttf"
     if os.path.exists(font_path):
         pdf.add_font("DejaVu", '', font_path, uni=True)
@@ -18,12 +17,11 @@ def create_pdf(course_details_list):
     else:
         raise FileNotFoundError("DejaVuSans.ttf is missing. Upload it to the project directory.")
 
-    # Header
+
     pdf.set_font("DejaVu", size=14)
     pdf.cell(0, 10, txt="Halic Üniversitesi - Sınav Programı", ln=True, align="C")
     pdf.ln(5)
 
-    # Table Header
     pdf.set_fill_color(0, 51, 102)
     pdf.set_text_color(255, 255, 255)
     pdf.set_font("DejaVu", size=10 )
@@ -33,7 +31,7 @@ def create_pdf(course_details_list):
     pdf.cell(45, 10, "Ders Kodu", 1, 0, 'C', 1)
     pdf.cell(60, 10, "Ders Adı", 1, 1, 'C', 1)
 
-    # Table Rows
+
     pdf.set_text_color(0, 0, 0)
     pdf.set_font("DejaVu", size=10)
     for details in course_details_list:
@@ -43,7 +41,6 @@ def create_pdf(course_details_list):
         pdf.cell(45, 10, details['Ders Kodu'].split(';')[0], 1, 0, 'C')
         pdf.multi_cell(60, 10, details['Ders Adı'].split(';')[0], 1, 'C')
 
-    # Footer
     pdf.set_y(-20)
     pdf.set_font("DejaVu", size=8)
     pdf.cell(0, 10, "Halic Üniversitesi - Sınav Programı", 0, 0, 'L')
@@ -54,10 +51,8 @@ def create_pdf(course_details_list):
     return output_file
 
 
-# Streamlit App Configuration
 st.set_page_config(page_title="Halic Üniversitesi Sınav Programı", layout="wide")
 
-# CSS Styling
 st.markdown("""
     <style>
         body {
@@ -113,16 +108,16 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# App Title and Description
+
 st.markdown("<h1 class='title'>Halic Üniversitesi Sınav Programı</h1>", unsafe_allow_html=True)
 st.markdown("<p class='subtitle'>Sınav tarihlerinizi görüntüleyin ve PDF olarak kaydedin.</p>", unsafe_allow_html=True)
 
-# Instructions for Users
+
 st.markdown("<p class='instructions'>1. Tüm sınav programını görmek için aşağıdaki tabloyu inceleyin.<br>"
             "2. Yalnızca seçili derslerin programını görmek için dersleri seçin.<br>"
             "3. PDF oluştur butonu ile seçili dersleri PDF formatında indirebilirsiniz.</p>", unsafe_allow_html=True)
 
-# File Loading
+
 file_path = "data/exam_schedule.xlsx"
 
 if os.path.exists(file_path):
@@ -132,10 +127,8 @@ if os.path.exists(file_path):
     st.write("### Tüm Sınav Programı")
     st.dataframe(df)
 
-    # Clean Ders Kodu
     df['Ders Kodu Clean'] = df[df.columns[3]].apply(lambda x: x.split(";")[0])
 
-    # Course Selection
     unique_courses = df[['Ders Kodu Clean', df.columns[4]]].drop_duplicates()
     course_options = unique_courses.apply(
         lambda row: f"{row['Ders Kodu Clean']} - {row[df.columns[4]]}", axis=1
@@ -158,7 +151,7 @@ if os.path.exists(file_path):
                 "Ders Adı": str(row[4]),
             })
 
-        # Display Selected Courses as Cards
+
         st.write("### Seçili Derslerin Programı")
         for details in course_details_list:
             st.markdown(
@@ -172,7 +165,7 @@ if os.path.exists(file_path):
                 """, unsafe_allow_html=True
             )
 
-        # Generate PDF
+
         st.markdown("<div class='pdf-button-container'>", unsafe_allow_html=True)
         if st.button("📄 PDF Oluştur ve İndir"):
             pdf_path = create_pdf(course_details_list)
@@ -187,3 +180,14 @@ if os.path.exists(file_path):
         st.markdown("</div>", unsafe_allow_html=True)
 else:
     st.error(f"Dosya bulunamadı: {file_path}. Lütfen dosya yolunu kontrol edin.")
+
+
+st.markdown(
+    """
+    <div class='footer'>
+        Created by <strong>Muhammed İbrahim Kartal</strong>. Check out the project on
+        <a href="https://github.com/muhkartal" target="_blank">GitHub</a>.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
