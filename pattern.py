@@ -165,9 +165,7 @@ if os.path.exists(file_path):
                     file_name="sinav_programi.pdf",
                     mime="application/pdf"
                 )
-        else:
-         st.error(f"Dosya bulunamadı: {file_path}. Lütfen dosya yolunu kontrol edin.")
-
+        st.markdown("</div>", unsafe_allow_html=True)
 
         for details in course_details_list:
             st.markdown(
