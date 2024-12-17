@@ -26,7 +26,7 @@ def create_pdf(course_details_list):
     # Table Header
     pdf.set_fill_color(0, 51, 102)
     pdf.set_text_color(255, 255, 255)
-    pdf.set_font("DejaVu", size=10, style="B")
+    pdf.set_font("DejaVu", size=10 )
     pdf.cell(35, 10, "Tarih", 1, 0, 'C', 1)
     pdf.cell(25, 10, "Başlangıç", 1, 0, 'C', 1)
     pdf.cell(25, 10, "Bitiş", 1, 0, 'C', 1)
