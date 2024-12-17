@@ -1,4 +1,4 @@
-streamlit
-fpdf
+fpdf==1.7.2
 pandas
+streamlit
 openpyxl
