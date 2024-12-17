@@ -154,19 +154,6 @@ if os.path.exists(file_path):
 
         st.write("### Seçili Derslerin Programı")
 
-        st.markdown("<div class='pdf-button-container'>", unsafe_allow_html=True)
-        if st.button("📄 PDF Oluştur ve İndir"):
-            pdf_path = create_pdf(course_details_list)
-            st.markdown("<p class='pdf-success'>PDF başarıyla oluşturuldu!</p>", unsafe_allow_html=True)
-            with open(pdf_path, "rb") as file:
-                st.download_button(
-                    label="📥 PDF'yi indir",
-                    data=file,
-                    file_name="sinav_programi.pdf",
-                    mime="application/pdf"
-                )
-        st.markdown("</div>", unsafe_allow_html=True)
-
         for details in course_details_list:
             st.markdown(
                 f"""
