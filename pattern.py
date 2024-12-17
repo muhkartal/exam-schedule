@@ -185,7 +185,7 @@ else:
 
 st.markdown(
     """
-    <div class='footer'>
+     <div class='footer' style='text-align: center;'>
         Created by  <a href="https://kartal.dev/" target="_blank">Muhammed İbrahim Kartal</a>. Check out the project on
         <a href="https://github.com/muhkartal" target="_blank">GitHub</a>.<br>
         <br>If you encounter any problems, please contact me at
