@@ -120,7 +120,7 @@ st.markdown("<p class='instructions'>1. Tüm sınav programını görmek için a
             "3. PDF oluştur butonu ile seçili dersleri PDF formatında indirebilirsiniz.</p>", unsafe_allow_html=True)
 
 # File Loading
-file_path = "exam_schedule.xlsx"
+file_path = "Github/exam-schedule/data/exam_schedule.xlsx"
 if os.path.exists(file_path):
     df = pd.read_excel(file_path)
 
