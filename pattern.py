@@ -3,7 +3,6 @@ import streamlit as st
 from fpdf import FPDF
 import os
 
-# PDF Creation Function
 def create_pdf(course_details_list):
     pdf = FPDF()
     pdf.add_page()
@@ -11,12 +10,7 @@ def create_pdf(course_details_list):
     pdf.set_right_margin(10)
     pdf.set_top_margin(20)
 
-    # Font setup
-    font_path = "data/DejaVuSans.ttf"
-    pdf.set_font("Arial", size=10)
-
-
-    # Header with University Name
+    # Use built-in Arial font
     pdf.set_font("Arial", size=14)
     pdf.cell(0, 10, txt="Halic Üniversitesi - Sınav Programı", ln=True, align="C")
     pdf.ln(5)
@@ -24,7 +18,7 @@ def create_pdf(course_details_list):
     # Table Header Styling
     pdf.set_fill_color(0, 51, 102)  # University official blue
     pdf.set_text_color(255, 255, 255)
-    pdf.set_font("Sans", size=10)
+    pdf.set_font("Arial", size=10, style="B")
     pdf.cell(35, 10, "Tarih", 1, 0, 'C', 1)
     pdf.cell(25, 10, "Başlangıç", 1, 0, 'C', 1)
     pdf.cell(25, 10, "Bitiş", 1, 0, 'C', 1)
@@ -33,23 +27,24 @@ def create_pdf(course_details_list):
 
     # Table Rows
     pdf.set_text_color(0, 0, 0)
-    pdf.set_font("Sans", size=10)
+    pdf.set_font("Arial", size=10)
     for details in course_details_list:
         pdf.cell(35, 10, details['Tarih'], 1, 0, 'C')
         pdf.cell(25, 10, details['Saat Başlangıç'], 1, 0, 'C')
         pdf.cell(25, 10, details['Saat Bitiş'], 1, 0, 'C')
         pdf.cell(45, 10, details['Ders Kodu'].split(';')[0], 1, 0, 'C')
-        pdf.multi_cell(60, 10, details['Ders Adı'].split(';')[0], 1, 'C')  # Multi-cell for clean display
+        pdf.multi_cell(60, 10, details['Ders Adı'].split(';')[0], 1, 'C')
 
     # Footer
     pdf.set_y(-20)
-    pdf.set_font("Sans", size=8)
+    pdf.set_font("Arial", size=8)
     pdf.cell(0, 10, "Halic Üniversitesi - Sınav Programı", 0, 0, 'L')
     pdf.cell(0, 10, f"Sayfa {pdf.page_no()}", 0, 0, 'R')
 
     output_file = "sinav_programi.pdf"
     pdf.output(output_file)
     return output_file
+
 
 # Streamlit App Configuration
 st.set_page_config(page_title="Halic Üniversitesi Sınav Programı", layout="wide")
