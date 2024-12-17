@@ -13,11 +13,8 @@ def create_pdf(course_details_list):
 
     # Font setup
     font_path = "Github/exam-schedule/data/DejaVuSans.ttf"
-    if os.path.exists(font_path):
-        pdf.add_font("Sans", '', font_path, uni=True)
-        pdf.set_font("Sans", size=10)
-    else:
-        pdf.set_font("Arial", size=10)
+    pdf.set_font("Arial", size=10)
+
 
     # Header with University Name
     pdf.set_font("Sans", size=14)
@@ -123,7 +120,7 @@ st.markdown("<p class='instructions'>1. Tüm sınav programını görmek için a
             "3. PDF oluştur butonu ile seçili dersleri PDF formatında indirebilirsiniz.</p>", unsafe_allow_html=True)
 
 # File Loading
-file_path = "Github/exam-schedule/data/exam_schedule.xlsx"
+file_path = "exam_schedule.xlsx"
 if os.path.exists(file_path):
     df = pd.read_excel(file_path)
 
