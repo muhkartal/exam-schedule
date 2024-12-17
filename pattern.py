@@ -10,15 +10,23 @@ def create_pdf(course_details_list):
     pdf.set_right_margin(10)
     pdf.set_top_margin(20)
 
-    # Use built-in Arial font
-    pdf.set_font("Arial", size=14)
+    # Use a Unicode-compatible font like DejaVuSans
+    font_path = "data/DejaVuSans.ttf"
+    if os.path.exists(font_path):
+        pdf.add_font("DejaVu", '', font_path, uni=True)
+        pdf.set_font("DejaVu", size=10)
+    else:
+        raise FileNotFoundError("DejaVuSans.ttf is missing. Upload it to the project directory.")
+
+    # Header
+    pdf.set_font("DejaVu", size=14)
     pdf.cell(0, 10, txt="Halic Üniversitesi - Sınav Programı", ln=True, align="C")
     pdf.ln(5)
 
-    # Table Header Styling
-    pdf.set_fill_color(0, 51, 102)  # University official blue
+    # Table Header
+    pdf.set_fill_color(0, 51, 102)
     pdf.set_text_color(255, 255, 255)
-    pdf.set_font("Arial", size=10, style="B")
+    pdf.set_font("DejaVu", size=10, style="B")
     pdf.cell(35, 10, "Tarih", 1, 0, 'C', 1)
     pdf.cell(25, 10, "Başlangıç", 1, 0, 'C', 1)
     pdf.cell(25, 10, "Bitiş", 1, 0, 'C', 1)
@@ -27,7 +35,7 @@ def create_pdf(course_details_list):
 
     # Table Rows
     pdf.set_text_color(0, 0, 0)
-    pdf.set_font("Arial", size=10)
+    pdf.set_font("DejaVu", size=10)
     for details in course_details_list:
         pdf.cell(35, 10, details['Tarih'], 1, 0, 'C')
         pdf.cell(25, 10, details['Saat Başlangıç'], 1, 0, 'C')
@@ -37,7 +45,7 @@ def create_pdf(course_details_list):
 
     # Footer
     pdf.set_y(-20)
-    pdf.set_font("Arial", size=8)
+    pdf.set_font("DejaVu", size=8)
     pdf.cell(0, 10, "Halic Üniversitesi - Sınav Programı", 0, 0, 'L')
     pdf.cell(0, 10, f"Sayfa {pdf.page_no()}", 0, 0, 'R')
 
