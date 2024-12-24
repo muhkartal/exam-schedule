@@ -17,30 +17,33 @@ def create_pdf(course_details_list):
     else:
         raise FileNotFoundError("DejaVuSans.ttf is missing. Upload it to the project directory.")
 
-
     pdf.set_font("DejaVu", size=14)
     pdf.cell(0, 10, txt="Halic Üniversitesi - Sınav Programı", ln=True, align="C")
     pdf.ln(5)
 
+    # Table Header
     pdf.set_fill_color(0, 51, 102)
     pdf.set_text_color(255, 255, 255)
-    pdf.set_font("DejaVu", size=10 )
-    pdf.cell(35, 10, "Tarih", 1, 0, 'C', 1)
+    pdf.set_font("DejaVu", size=10)
+    pdf.cell(30, 10, "Tarih", 1, 0, 'C', 1)
     pdf.cell(25, 10, "Başlangıç", 1, 0, 'C', 1)
     pdf.cell(25, 10, "Bitiş", 1, 0, 'C', 1)
-    pdf.cell(45, 10, "Ders Kodu", 1, 0, 'C', 1)
-    pdf.cell(60, 10, "Ders Adı", 1, 1, 'C', 1)
+    pdf.cell(35, 10, "Ders Kodu", 1, 0, 'C', 1)
+    pdf.cell(50, 10, "Ders Adı", 1, 0, 'C', 1)
+    pdf.cell(45, 10, "Derslik/Oda Kodları", 1, 1, 'C', 1)
 
-
+    # Table Content
     pdf.set_text_color(0, 0, 0)
-    pdf.set_font("DejaVu", size=10)
+    pdf.set_font("DejaVu", size=9)
     for details in course_details_list:
-        pdf.cell(35, 10, details['Tarih'], 1, 0, 'C')
+        pdf.cell(30, 10, details['Tarih'], 1, 0, 'C')
         pdf.cell(25, 10, details['Saat Başlangıç'], 1, 0, 'C')
         pdf.cell(25, 10, details['Saat Bitiş'], 1, 0, 'C')
-        pdf.cell(45, 10, details['Ders Kodu'].split(';')[0], 1, 0, 'C')
-        pdf.multi_cell(60, 10, details['Ders Adı'].split(';')[0], 1, 'C')
+        pdf.cell(35, 10, details['Ders Kodu'].split(';')[0], 1, 0, 'C')  # Avoid duplicate entries
+        pdf.cell(50, 10, details['Ders Adı'].split(';')[0], 1, 0, 'C')  # Avoid duplicate entries
+        pdf.cell(45, 10, details['Derslik/Oda Kodları'], 1, 1, 'C')
 
+    # Footer
     pdf.set_y(-20)
     pdf.set_font("DejaVu", size=8)
     pdf.cell(0, 10, "Halic Üniversitesi - Sınav Programı", 0, 0, 'L')
@@ -49,6 +52,8 @@ def create_pdf(course_details_list):
     output_file = "sinav_programi.pdf"
     pdf.output(output_file)
     return output_file
+
+
 
 
 st.set_page_config(page_title="Halic Üniversitesi Sınav Programı", layout="wide")
@@ -149,7 +154,9 @@ if os.path.exists(file_path):
                 "Saat Bitiş": str(row[2]),
                 "Ders Kodu": str(row[3]),
                 "Ders Adı": str(row[4]),
-            })
+                "Derslik/Oda Kodları": str(row['DERSLİK/ODA KODLARI']),
+    })
+
 
 
         st.write("### Seçili Derslerin Programı")
